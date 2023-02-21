@@ -1,0 +1,68 @@
+* {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+}
+
+header {
+    background-color: #039;
+    color: #fff;
+    padding: 10px;
+    font-size: 1.2em;
+}
+
+main.products {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
+}
+
+article {
+    width: 30%;
+    margin: 5px;
+    border: #aaa solid 1px;
+}
+
+article > img,
+.product img {
+    width: 100%;
+    height: 20vw;
+    object-fit: cover;
+}
+
+article > div {
+    display: flex;
+    justify-content: space-between;
+}
+
+article > a {
+    display: block;
+    background-color: #039;
+    text-align: center;
+    width: 100%;
+    color: white;
+    text-decoration: none;
+}
+
+main.product {
+    display: flex;
+    align-items: center;
+}
+
+main.product div {
+    width: 50%;
+}
+
+.prixFormWrap {
+    display: flex;
+}
+
+.prixFormItem {
+    margin-right: 1%;
+}
+
+.error {
+    color: #f00;
+}

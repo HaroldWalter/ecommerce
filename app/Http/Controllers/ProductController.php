@@ -90,14 +90,15 @@ class ProductController extends Controller
     {
         $product = Product::create($request->all());
 
-        // Maintenant qu'on a l'ID du produit, ons tocke l'image
+        // Maintenant qu'on a l'ID du produit, on stocke l'image
         if ($request->image != null) {
             $image = $product->id . '.' . $request->image->extension();
+            // dd($image);
             $request->file('image')->move(public_path('images'), $image);
             $product->image = $image;
-            $product->save();
-        }
 
+        }
+        $product->save();
         return redirect('/');
     }
 
@@ -105,13 +106,34 @@ class ProductController extends Controller
     {
 
         $product = Product::findOrFail($id);
-        return view("/product/modify")->with("product", $product);
+        return view("/product/modify")->withProduct($product);
     }
 
-    public function modifySave($id, ProductRequest $request)
+    public function saveModify($id, ProductRequest $request)
     {
         $product = Product::findOrFail($id);
+        $product->name = $request->input("name");
+        $product->description = $request->input("description");
+        $product->price = $request->input("price");
+        $product->vat = $request->input("vat");
+        if ($request->image != null) {
+            $todelete = public_path('images') . "/" . $product->image;
+            unlink($todelete);
+            $image = $product->id . '.' . $request->image->extension();
+            // dd($image);
+            $request->file('image')->move(public_path('images'), $image);
+            $product->image = $image;
+        }
+        $product->save();
+        return redirect('/');
+    }
 
+    public function delete($id)
+    {
+        $product = Product::findOrFail($id);
+        $todelete = public_path('images') . "/" . $product->image;
+        unlink($todelete);
+        $product->delete();
+        return redirect('/');
     }
 }
-

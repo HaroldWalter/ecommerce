@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\ProductController;
 use Illuminate\Support\Facades\Route;
 
@@ -14,21 +15,43 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
+Route::get('/breeze', function () {
+    return view('welcome');
+});
+
+Route::get('/dashboard', function () {
+    return view('dashboard');
+})->middleware(['auth', 'verified'])->name('dashboard');
+
+Route::middleware('auth')->group(function () {
+
+    Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
+    Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
+    Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
+});
+
+require __DIR__ . '/auth.php';
+
+
 Route::get('/', [ProductController::class, "viewAll"]);
+
 Route::get('/details/{id}', [ProductController::class, "details"]);
+
 Route::get('/ajout/{id}', [ProductController::class, "ajout"]);
 
 
 Route::get('/panier', [ProductController::class, "panier"]);
 
-Route::get('/validation',[ProductController::class, "validation"]);
+Route::get('/validation', [ProductController::class, "validation"]);
 
-Route::get('/product/create', [ProductController::class, "create"]);
+Route::middleware('admin')->group(function () {
+    Route::get('/product/create', [ProductController::class, "create"]);
 
-Route::put('/product/save', [ProductController::class, "save"]);
+    Route::post('/product/save', [ProductController::class, "save"]);
 
-Route::get('/product/modify/{id}', [ProductController::class, "modify"]);
+    Route::get('/product/modify/{id}', [ProductController::class, "modify"]);
 
-Route::put('/product/modify/{id}', [ProductController::class, "modifySave"]);
+    Route::put('/product/save-modify/{id}', [ProductController::class, "saveModify"]);
 
-
+    Route::delete(('/product/delete/{id}'), [ProductController::class, "delete"]);
+});

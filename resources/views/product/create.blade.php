@@ -4,7 +4,6 @@
         <h2>Créer un nouveau produit</h2>
         <form method="POST" action="{{ url('/product/save') }}" enctype="multipart/form-data">
             @csrf
-            @method('PUT')
             <label for="name">Nom du produit*</label><br>
             <input type="text" id="name" name="name" value="{{ old('name', '') }}"><br>
             @error('name')
@@ -36,10 +35,10 @@
                     <br>
                     <select name="vat" id="vat">
                         <option value="" @if (old('vat') == '') selected @endif></option>
-                        <option value="2.1" @if (old('vat') == '2.1') selected @endif>2.1%</option>
-                        <option value="5" @if (old('vat') == '5') selected @endif>5%</option>
-                        <option value="10" @if (old('vat') == '10') selected @endif>10%</option>
-                        <option value="20" @if (old('vat') == '20') selected @endif>20%</option>
+                        <option value="2.1" @if (old('vat') == 2.1) selected @endif>2.1%</option>
+                        <option value="5" @if (old('vat') == 5) selected @endif>5%</option>
+                        <option value="10" @if (old('vat') == 10) selected @endif>10%</option>
+                        <option value="20" @if (old('vat') == 20) selected @endif>20%</option>
                     </select>
                     {{-- <input type="number" id="vat" name="vat" value="{{ old('vat', '') }}"><br> --}}
                     @error('vat')
@@ -48,7 +47,7 @@
                 </div>
 
             </div><br>
-            <input type="submit" value="Créer ce produit">
+            <input type="submit" value="Créer">
 
 
         </form>

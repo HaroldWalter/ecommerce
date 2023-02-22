@@ -10,5 +10,11 @@
             <a href="/ajout/{{$product->id}}">Ajouter </a>
             </div>
 
+            <a href="/product/modify/{{$product->id}}">Modifier</a>
+            <form action="/product/delete/{{$product->id}}" method="post">
+            @csrf
+            @method("delete")
+            <button type="submit">Supprimer</button>
+            </form>
 </main>
 @endsection

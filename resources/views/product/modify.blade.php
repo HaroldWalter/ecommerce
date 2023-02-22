@@ -2,7 +2,7 @@
 @section('content')
     <main>
         <h2>Modifier un produit</h2>
-        <form method="POST" action="{{ url('/product/save') }}" enctype="multipart/form-data">
+        <form method="POST" action="/product/save-modify/{{$product->id}}" enctype="multipart/form-data">
             @csrf
             @method('PUT')
             <label for="name">Nom du produit*</label><br>
@@ -35,10 +35,10 @@
                     <label for="vat">Taux de TVA*</label>
                     <br>
                     <select name="vat" id="vat">
-                        <option value="2.1" @if ($product->vat == '2.1') selected @endif>2.1%</option>
-                        <option value="5" @if ($product->vat == '5') selected @endif>5%</option>
-                        <option value="10" @if ($product->vat == '10') selected @endif>10%</option>
-                        <option value="20" @if ($product->vat == '20') selected @endif>20%</option>
+                        <option value="2.1" @if ($product->vat == 2.1) selected @endif>2.1%</option>
+                        <option value="5" @if ($product->vat == 5) selected @endif>5%</option>
+                        <option value="10" @if ($product->vat == 10) selected @endif>10%</option>
+                        <option value="20" @if ($product->vat == 20) selected @endif>20%</option>
                     </select>
                     @error('vat')
                         <div class="error"> {{ $message }}</div>
@@ -46,7 +46,7 @@
                 </div>
 
             </div><br>
-            <input type="submit" value=" Enregistrer les changements">
+            <input type="submit" value=" Modifier">
 
 
         </form>
